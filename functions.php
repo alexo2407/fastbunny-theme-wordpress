@@ -94,11 +94,11 @@ function get_tracking_info() {
             '__VIEWSTATE' => $viewstate,
             '__VIEWSTATEGENERATOR' => $viewstategenerator,
             '__EVENTVALIDATION' => $eventvalidation,
-            'txTracking' => $tracking_number, // Nombre del input en el nuevo sitio
-            'btBuscar' => 'Buscar'            // Nombre del botón submit
+            'txTracking' => $tracking_number,
+            'btBuscar' => 'Buscar'
         ),
         'method' => 'POST',
-        'cookies' => $cookies, // Importante: mantener la sesión
+        'cookies' => $cookies,
         'sslverify' => false,
         'headers' => array(
             'Content-Type' => 'application/x-www-form-urlencoded',
@@ -116,54 +116,72 @@ function get_tracking_info() {
     $body_post = wp_remote_retrieve_body($response_post);
 
     // 4. Procesar el HTML de respuesta
-    // Buscamos las tablas o el contenedor de resultados. 
-    // En este sitio parece que los resultados están dentro de divs con clase "GridDock" o tablas generadas.
-    
-    // Extraer tablas
-    preg_match_all('/<table.*?>.*?<\/table>/s', $body_post, $tables);
+    $dom = new DOMDocument();
+    @$dom->loadHTML($body_post); // Suprimir advertencias de HTML mal formado
+    $xpath = new DOMXPath($dom);
 
-    $filtered_html = "";
-    
-    if (!empty($tables[0])) {
-        foreach ($tables[0] as $table) {
-            // Filtrar tablas vacías o irrelevantes si es necesario
-            // Por ahora concatenamos todas las tablas encontradas que tengan contenido visible
-            if (strip_tags($table) != "") {
-                 $filtered_html .= $table;
+    // Buscar todas las tablas
+    $tables = $xpath->query('//table');
+    $events = [];
+    $raw_html = "";
+
+    if ($tables->length > 0) {
+        // Asumimos que la tabla de datos es la que tiene más filas o la última relevante
+        // En muchos sistemas ASP.NET, la tabla de datos es un GridView
+        foreach ($tables as $table) {
+            $rows = $xpath->query('.//tr', $table);
+            if ($rows->length > 1) { // Debe tener más de 1 fila (header + data)
+                
+                // Guardamos el HTML por si acaso falla el parsing
+                $raw_html .= $dom->saveHTML($table);
+
+                // Intentar parsear las filas
+                foreach ($rows as $index => $row) {
+                    if ($index === 0) continue; // Saltar encabezado
+
+                    $cols = $xpath->query('.//td', $row);
+                    
+                    // El usuario reportó 12 columnas:
+                    // 0: Código Volid, 1: Fecha Ingreso, 2: Código Casillero, 3: Peso, 4: Nombre Completo
+                    // 5: Estado del Paquete, 6: Envío, 7: Contenido, 8: Tracking, 9: Comentario, 10: Manifiesto, 11: Imagen
+                    
+                    if ($cols->length >= 10) { // Validamos que tenga al menos las columnas principales
+                        $event = [
+                            'volid' => trim($cols->item(0)->nodeValue),
+                            'date' => trim($cols->item(1)->nodeValue),
+                            'locker' => trim($cols->item(2)->nodeValue),
+                            'weight' => trim($cols->item(3)->nodeValue),
+                            'name' => trim($cols->item(4)->nodeValue),
+                            'status' => trim($cols->item(5)->nodeValue),
+                            'shipping_type' => trim($cols->item(6)->nodeValue), // Envío
+                            'content' => trim($cols->item(7)->nodeValue),
+                            'tracking' => trim($cols->item(8)->nodeValue),
+                            'comment' => trim($cols->item(9)->nodeValue),
+                            'manifest' => ($cols->length > 10) ? trim($cols->item(10)->nodeValue) : '',
+                            'image_html' => ($cols->length > 11) ? $dom->saveHTML($cols->item(11)) : '' // Guardamos el HTML de la imagen (probablemente un <a> o <img>)
+                        ];
+                        $events[] = $event;
+                    }
+                }
             }
         }
     } else {
-        // Si no hay tablas, intentamos buscar mensajes de error o contenedores específicos
-        // A veces ASP.NET devuelve el error en un span o div
-        if (strpos($body_post, 'No se encontraron registros') !== false) {
+         if (strpos($body_post, 'No se encontraron registros') !== false) {
              echo json_encode(["error" => "No se encontraron registros para este número."]);
              wp_die();
         }
     }
 
-    if (empty($filtered_html)) {
-        // Fallback: Si no encontramos tablas, devolver un mensaje genérico o parte del body para debug
-        // echo json_encode(["html" => "No se pudo interpretar la respuesta del servidor externo."]);
-        // Para depuración, podríamos devolver una parte del body:
-        // echo json_encode(["html" => substr(strip_tags($body_post), 0, 500)]);
+    if (empty($events) && empty($raw_html)) {
         echo json_encode(["error" => "No se encontraron datos de rastreo. Verifique el número."]);
         wp_die();
     }
 
-    // 5. Limpieza y corrección de estilos/imágenes
-    // Convertir rutas relativas a absolutas para que se vean bien
-    $base_url = "https://portalvolexpress.com/";
-    $filtered_html = str_replace('src="', 'src="' . $base_url, $filtered_html);
-    $filtered_html = str_replace('href="', 'href="' . $base_url, $filtered_html);
-    
-    // Corregir dobles protocolos si ocurren (ej: https://portalvolexpress.com/http://...)
-    $filtered_html = str_replace($base_url . 'http', 'http', $filtered_html);
-    $filtered_html = str_replace($base_url . 'https', 'https', $filtered_html);
-
-    // Opcional: Inyectar algo de CSS para que la tabla se vea bien en el modal de Bootstrap
-    $custom_css = '<style>table { width: 100%; max-width: 100%; margin-bottom: 1rem; background-color: transparent; } th, td { padding: 0.75rem; vertical-align: top; border-top: 1px solid #dee2e6; } </style>';
-
-    echo json_encode(["html" => $custom_css . $filtered_html]);
+    // 5. Devolver JSON estructurado
+    echo json_encode([
+        "events" => $events, // Array de objetos {date, status, location, details}
+        "html" => $raw_html  // Fallback
+    ]);
     wp_die();
 }
 

@@ -40,6 +40,20 @@
   </div>
 </div>
 
+<!-- Modal para Imagen Ampliada -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body text-center position-relative">
+        <button type="button" class="close text-white position-absolute" style="top: -30px; right: 0; opacity: 1;" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="font-size: 2rem;">&times;</span>
+        </button>
+        <img src="" id="previewImage" class="img-fluid rounded shadow-lg" alt="Evidencia">
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 

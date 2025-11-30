@@ -274,6 +274,201 @@ body{
 /** pie **/
 .pie .precio {
     font-size: 2rem;
+    display: block;
+    top: 0;
+    background: linear-gradient(135deg, rgba(242, 123, 59, 0.7) 0%, rgba(6, 79, 137, 0.7) 51%, rgba(107,107,107,0.7) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3a90329', endColorstr='#b36b6b6b',GradientType=1 );
+}
+
+/* Asegura que el video se ajuste sin deformarse */
+.embed-responsive-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.informacion-concierto {
+    position: absolute;
+    z-index: 100;
+    top: 20%;
+}
+.informacion-concierto h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 3rem;
+
+}
+
+
+.contenedor {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* Usando flex */
+.contenido-hero {
+    width: 100%;
+    max-width: 1500px; /* Ajusta el valor aquí */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+
+/* 📌 CONTENEDOR DEL INPUT Y BOTÓN */
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1500px; /* 📌 Máximo tamaño en pantallas grandes */
+}
+
+/* 📌 ICONO DE LUPA DENTRO DEL INPUT */
+.input-container .search-icon {
+    position: absolute;
+    left: 15px;
+    width: 25px;
+    height: 25px;
+}
+
+/* 📌 INPUT RESPONSIVO */
+.input-container input {
+    width: 1000px;
+    max-width: 800px;
+    padding: 12px 50px; /* 📌 Espacio para la lupa */
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1.2rem;
+}
+
+/* 📌 BOTÓN RESPONSIVO */
+.input-container .btn-buscar {
+    position: absolute;
+    right: 5px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    color: white;
+    background-color: #f27b3b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 📌 MODIFICACIONES RESPONSIVAS */
+@media (max-width: 768px) {
+    .contenido-hero h1 {
+        font-size: 2rem;
+    }
+    .input-container {
+        max-width: 90%;
+    }
+    .input-container input {
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px 45px;
+    }
+    .input-container .btn-buscar {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+}
+
+/* 📌 Estilos para el spinner */
+.spinner-container {
+    display: none; /* 🔥 Oculto por defecto */
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Efecto suave de aparición */
+}
+
+/* 📌 Estilo del Spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* 📌 Mostrar el spinner con animación */
+.spinner-container.show {
+    display: block;
+    opacity: 1;
+}
+
+
+@media (min-width: 768px) {
+    .informacion-concierto {
+        top: 30%;
+    }
+    .informacion-concierto h1 {
+        font-size: 3rem;
+        line-height: unset;
+    }
+}
+.informacion-concierto h1 span,
+.informacion-concierto p {
+    font-weight: 700;
+    -webkit-box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
+    -moz-box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
+    box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
+}
+.informacion-concierto p {
+    font-size: 2rem;
+}
+.informacion-concierto .text-dark,
+.contenido-principal .text-dark {
+    color: #f27b3b!important;
+    font-weight: 700;
+}
+
+/** Line up **/
+
+.separador::after{
+    content: '';
+    display: block;
+    height: 120px;
+    width: 300px;
+    background-size: 120px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 0 auto;
+}
+.rock::after {
+    background-image: url(../img/guitarra.png);
+}
+.dj::after {
+    background-image: url(../img/dj.png);
+}
+
+.horario.bg-warning li:nth-child(2n+1) {
+    background-color: #eae05b!important;
+}
+.horario.bg-success li:nth-child(2n+1) {
+    background-color: #3ca8a2!important;
+}
+
+/** Fecha **/
+
+.fecha {
+    font-size: 2.8rem;
+}
+.fecha span {
+    font-weight: 700;
+}
+.fecha span:first-child::before {
+    display: none;
+}
+.fecha span::before {
+    content: '-';
+    clear: both;
+}
+
+/** pie **/
+.pie .precio {
+    font-size: 2rem;
 }
 .pie .active {
      background-color:  #1B659F!important;
@@ -282,3 +477,106 @@ body{
 .list-group-item-success {
     background-color: #4cb8b3!important;
 }
+
+/* 📌 TRACKING TIMELINE STYLES */
+.tracking-timeline {
+    position: relative;
+    padding: 20px 0;
+    margin-left: 20px;
+    border-left: 2px solid #e9ecef;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 30px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -9px; /* Ajustar para centrar en la línea de 2px */
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 3px solid #adb5bd;
+    transition: all 0.3s ease;
+}
+
+.timeline-item.active .timeline-marker {
+    background-color: #28a745; /* Verde éxito */
+    border-color: #28a745;
+    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.2);
+}
+
+.timeline-content {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.timeline-item.active .timeline-content {
+    border-left: 4px solid #28a745;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.timeline-date {
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.95rem;
+}
+
+.timeline-status {
+    font-weight: 700;
+    color: #007bff;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.timeline-item.active .timeline-status {
+    color: #28a745;
+}
+
+.timeline-location {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-bottom: 4px;
+    font-style: italic;
+}
+
+.timeline-details {
+    font-size: 0.95rem;
+    color: #212529;
+    margin: 0;
+}
+
+/* Animación de entrada */
+.timeline-item {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }

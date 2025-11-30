@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
     // 1. Código para el formulario de tracking
     let trackingForm = document.getElementById('trackingForm');
@@ -38,11 +36,78 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 if (data.error) {
                     trackingResult.innerHTML = `<p style="color: red;">${data.error}</p>`;
-                } else {
-                    console.log(data.html); // Para depuración
+                } else if (data.events && data.events.length > 0) {
+                    // 📌 Renderizar Timeline con Tarjetas Detalladas
+                    let timelineHtml = '<div class="tracking-timeline">';
+                    
+                    data.events.forEach((event, index) => {
+                        // Determinar si es el último evento (el más reciente) para destacarlo
+                        let activeClass = index === 0 ? 'active' : '';
+                        
+                        // Extraer imagen si existe y hacerla clicable
+                        let imageContent = '';
+                        if (event.image_html) {
+                            // Crear un elemento temporal para extraer el src
+                            let tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = event.image_html;
+                            let imgEl = tempDiv.querySelector('img');
+                            
+                            if (imgEl) {
+                                let imgSrc = imgEl.src;
+                                imageContent = `
+                                    <div class="timeline-image mt-3">
+                                        <a href="#" class="d-block" onclick="openImageModal('${imgSrc}'); return false;">
+                                            <img src="${imgSrc}" class="img-fluid rounded border" style="max-height: 100px;" alt="Evidencia">
+                                            <div class="small text-muted mt-1"><i class="fa fa-search-plus"></i> Ver imagen</div>
+                                        </a>
+                                    </div>`;
+                            }
+                        }
+
+                        timelineHtml += `
+                            <div class="timeline-item ${activeClass}">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-header">
+                                        <span class="timeline-date"><i class="fa fa-calendar"></i> ${event.date}</span>
+                                        <span class="badge badge-primary">${event.status}</span>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p class="mb-1"><strong><i class="fa fa-cube"></i> Contenido:</strong> ${event.content}</p>
+                                                <p class="mb-1"><strong><i class="fa fa-barcode"></i> Tracking:</strong> ${event.tracking}</p>
+                                                <p class="mb-1"><strong><i class="fa fa-weight-hanging"></i> Peso:</strong> ${event.weight}</p>
+                                                <p class="mb-1"><strong><i class="fa fa-shipping-fast"></i> Envío:</strong> ${event.shipping_type}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="mb-1"><strong><i class="fa fa-id-card"></i> Volid:</strong> ${event.volid}</p>
+                                                <p class="mb-1"><strong><i class="fa fa-box-open"></i> Casillero:</strong> ${event.locker}</p>
+                                                <p class="mb-1"><strong><i class="fa fa-file-alt"></i> Manifiesto:</strong> ${event.manifest}</p>
+                                            </div>
+                                        </div>
+                                        ${event.comment ? `<div class="alert alert-secondary mt-2 mb-0"><small><strong>Comentario:</strong> ${event.comment}</small></div>` : ''}
+                                        ${imageContent}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    timelineHtml += '</div>';
+                    trackingResult.innerHTML = timelineHtml;
+
+                    // Mostrar el modal
+                    let trackingModalEl = document.getElementById('trackingModal');
+                    if (trackingModalEl) {
+                        let trackingModal = new bootstrap.Modal(trackingModalEl);
+                        trackingModal.show();
+                    }
+
+                } else if (data.html) {
+                    // 📌 Fallback: Mostrar HTML crudo si no se pudo parsear
                     trackingResult.innerHTML = data.html;
                     
-                    // Mostrar el modal de Bootstrap, si existe el elemento
                     let trackingModalEl = document.getElementById('trackingModal');
                     if (trackingModalEl) {
                         let trackingModal = new bootstrap.Modal(trackingModalEl);
@@ -51,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             })
             .catch(error => {
+                console.error('Error:', error);
                 trackingResult.innerHTML = "<p>Error al obtener la información.</p>";
             });
         });
@@ -102,4 +168,13 @@ document.querySelectorAll('.navbar-toggler').forEach(btn => {
       this.blur();
     });
   });
-  
+
+// Función global para abrir el modal de imagen
+function openImageModal(src) {
+    let modalImg = document.getElementById('previewImage');
+    if (modalImg) {
+        modalImg.src = src;
+        let imageModal = new bootstrap.Modal(document.getElementById('imageModal'));
+        imageModal.show();
+    }
+}
