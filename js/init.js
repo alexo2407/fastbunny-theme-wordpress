@@ -26,7 +26,22 @@ document.addEventListener("DOMContentLoaded", function () {
             formData.append('trackingNumber', trackingNumber);
 
             let trackingResult = document.getElementById('trackingResult');
-            trackingResult.innerHTML = "<p>Cargando datos de rastreo...</p>";
+            
+            // 📌 Mostrar spinner de carga (Custom CSS Loader)
+            trackingResult.innerHTML = `
+                <div class="text-center py-5">
+                    <span class="custom-loader"></span>
+                    <p class="mt-3 text-muted">Buscando información...</p>
+                </div>
+            `;
+
+            // 📌 Mostrar el modal inmediatamente
+            let trackingModalEl = document.getElementById('trackingModal');
+            let trackingModal = null;
+            if (trackingModalEl) {
+                trackingModal = new bootstrap.Modal(trackingModalEl);
+                trackingModal.show();
+            }
 
             fetch(tracking_ajax.ajaxurl, {
                 method: 'POST',
@@ -96,23 +111,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     
                     timelineHtml += '</div>';
                     trackingResult.innerHTML = timelineHtml;
-
-                    // Mostrar el modal
-                    let trackingModalEl = document.getElementById('trackingModal');
-                    if (trackingModalEl) {
-                        let trackingModal = new bootstrap.Modal(trackingModalEl);
-                        trackingModal.show();
-                    }
+                    // El modal ya está abierto
 
                 } else if (data.html) {
                     // 📌 Fallback: Mostrar HTML crudo si no se pudo parsear
                     trackingResult.innerHTML = data.html;
-                    
-                    let trackingModalEl = document.getElementById('trackingModal');
-                    if (trackingModalEl) {
-                        let trackingModal = new bootstrap.Modal(trackingModalEl);
-                        trackingModal.show();
-                    }
+                    // El modal ya está abierto
                 }
             })
             .catch(error => {

@@ -145,6 +145,24 @@ function get_tracking_info() {
                     // 0: Código Volid, 1: Fecha Ingreso, 2: Código Casillero, 3: Peso, 4: Nombre Completo
                     // 5: Estado del Paquete, 6: Envío, 7: Contenido, 8: Tracking, 9: Comentario, 10: Manifiesto, 11: Imagen
                     
+                    // Extraer y corregir URL de la imagen
+                    $image_html = '';
+                    if ($cols->length > 11) {
+                        $img_node = $cols->item(11)->getElementsByTagName('img')->item(0);
+                        if ($img_node) {
+                            $src = $img_node->getAttribute('src');
+                            if (strpos($src, '/') === 0) {
+                                $src = "https://portalvolexpress.com" . $src;
+                                $img_node->setAttribute('src', $src);
+                            }
+                            // Guardamos el HTML actualizado del nodo de imagen
+                            $image_html = $dom->saveHTML($img_node);
+                        } else {
+                            // Fallback si no es un <img> directo (ej. dentro de un <a>)
+                            $image_html = $dom->saveHTML($cols->item(11));
+                        }
+                    }
+
                     if ($cols->length >= 10) { // Validamos que tenga al menos las columnas principales
                         $event = [
                             'volid' => trim($cols->item(0)->nodeValue),
@@ -158,7 +176,7 @@ function get_tracking_info() {
                             'tracking' => trim($cols->item(8)->nodeValue),
                             'comment' => trim($cols->item(9)->nodeValue),
                             'manifest' => ($cols->length > 10) ? trim($cols->item(10)->nodeValue) : '',
-                            'image_html' => ($cols->length > 11) ? $dom->saveHTML($cols->item(11)) : '' // Guardamos el HTML de la imagen (probablemente un <a> o <img>)
+                            'image_html' => $image_html
                         ];
                         $events[] = $event;
                     }

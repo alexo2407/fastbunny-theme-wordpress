@@ -13,31 +13,37 @@ Text Domain: fast-bunny-cargo
 */
 
 
-body{
+body {
     font-family: 'Montserrat', sans-serif;
 }
+
 .bg-danger {
-    background-color: #f27b3b!important;
+    background-color: #f27b3b !important;
 }
+
 .bg-success {
-    background-color: #064f89!important;
+    background-color: #064f89 !important;
 }
+
 .bg-warning {
-    background-color: #fef46d!important;
+    background-color: #fef46d !important;
 }
+
 .bg-secondary {
-    background-color: #752f97!important;
+    background-color: #752f97 !important;
 }
 
 .fixed-top.bg-success {
-    -webkit-box-shadow: 0px 5px 19px -5px rgba(0,0,0,0.44);
-    -moz-box-shadow: 0px 5px 19px -5px rgba(0,0,0,0.44);
-    box-shadow: 0px 5px 19px -5px rgba(0,0,0,0.44);
+    -webkit-box-shadow: 0px 5px 19px -5px rgba(0, 0, 0, 0.44);
+    -moz-box-shadow: 0px 5px 19px -5px rgba(0, 0, 0, 0.44);
+    box-shadow: 0px 5px 19px -5px rgba(0, 0, 0, 0.44);
 }
+
 .fixed-top {
     transition: all .3s ease;
 }
-.navbar-light .navbar-nav .nav-link{
+
+.navbar-light .navbar-nav .nav-link {
     font-weight: bold;
     color: white;
 }
@@ -45,28 +51,32 @@ body{
 .navbar-toggler:focus {
     outline: none;
     box-shadow: none;
-  }
-  
+}
+
 .fixed-top .active {
-    background-color:#752f97!important;
+    background-color: #752f97 !important;
 }
 
 .navbar-brand {
     font-size: 1.8rem;
     font-weight: 400;
 }
+
 .navbar-brand span {
     font-weight: 700;
 }
+
 .navbar-brand:hover {
     color: white;
 }
+
 .embed-responsive {
     position: relative;
     background-size: cover;
     background-position: center center;
     height: 50rem;
 }
+
 @media (min-width: 992px) {
     .embed-responsive {
         background-image: unset;
@@ -81,8 +91,8 @@ body{
     content: '';
     display: block;
     top: 0;
-    background: linear-gradient(135deg, rgba(242, 123, 59, 0.7) 0%, rgba(6, 79, 137, 0.7) 51%, rgba(107,107,107,0.7) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3a90329', endColorstr='#b36b6b6b',GradientType=1 );
+    background: linear-gradient(135deg, rgba(242, 123, 59, 0.7) 0%, rgba(6, 79, 137, 0.7) 51%, rgba(107, 107, 107, 0.7) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3a90329', endColorstr='#b36b6b6b', GradientType=1);
 }
 
 /* Asegura que el video se ajuste sin deformarse */
@@ -97,6 +107,7 @@ body{
     z-index: 100;
     top: 20%;
 }
+
 .informacion-concierto h1 {
     font-size: 3rem;
     font-weight: 600;
@@ -113,7 +124,8 @@ body{
 /* Usando flex */
 .contenido-hero {
     width: 100%;
-    max-width: 1500px; /* Ajusta el valor aquí */
+    max-width: 1500px;
+    /* Ajusta el valor aquí */
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -129,7 +141,8 @@ body{
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 1500px; /* 📌 Máximo tamaño en pantallas grandes */
+    max-width: 1500px;
+    /* 📌 Máximo tamaño en pantallas grandes */
 }
 
 /* 📌 ICONO DE LUPA DENTRO DEL INPUT */
@@ -144,7 +157,8 @@ body{
 .input-container input {
     width: 1000px;
     max-width: 800px;
-    padding: 12px 50px; /* 📌 Espacio para la lupa */
+    padding: 12px 50px;
+    /* 📌 Espacio para la lupa */
     border: 2px solid #ccc;
     border-radius: 8px;
     font-size: 1.2rem;
@@ -168,14 +182,17 @@ body{
     .contenido-hero h1 {
         font-size: 2rem;
     }
+
     .input-container {
         max-width: 90%;
     }
+
     .input-container input {
         width: 100%;
         font-size: 1rem;
         padding: 10px 45px;
     }
+
     .input-container .btn-buscar {
         font-size: 0.9rem;
         padding: 6px 12px;
@@ -184,11 +201,13 @@ body{
 
 /* 📌 Estilos para el spinner */
 .spinner-container {
-    display: none; /* 🔥 Oculto por defecto */
+    display: none;
+    /* 🔥 Oculto por defecto */
     text-align: center;
     padding: 20px;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out; /* Efecto suave de aparición */
+    transition: opacity 0.5s ease-in-out;
+    /* Efecto suave de aparición */
 }
 
 /* 📌 Estilo del Spinner */
@@ -208,30 +227,34 @@ body{
     .informacion-concierto {
         top: 30%;
     }
+
     .informacion-concierto h1 {
         font-size: 3rem;
         line-height: unset;
     }
 }
+
 .informacion-concierto h1 span,
 .informacion-concierto p {
     font-weight: 700;
-    -webkit-box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
-    -moz-box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
-    box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
+    -webkit-box-shadow: 0px 17px 24px -13px rgba(0, 0, 0, 0.34);
+    -moz-box-shadow: 0px 17px 24px -13px rgba(0, 0, 0, 0.34);
+    box-shadow: 0px 17px 24px -13px rgba(0, 0, 0, 0.34);
 }
+
 .informacion-concierto p {
     font-size: 2rem;
 }
+
 .informacion-concierto .text-dark,
 .contenido-principal .text-dark {
-    color: #f27b3b!important;
+    color: #f27b3b !important;
     font-weight: 700;
 }
 
 /** Line up **/
 
-.separador::after{
+.separador::after {
     content: '';
     display: block;
     height: 120px;
@@ -241,18 +264,21 @@ body{
     background-position: center center;
     margin: 0 auto;
 }
+
 .rock::after {
     background-image: url(../img/guitarra.png);
 }
+
 .dj::after {
     background-image: url(../img/dj.png);
 }
 
 .horario.bg-warning li:nth-child(2n+1) {
-    background-color: #eae05b!important;
+    background-color: #eae05b !important;
 }
+
 .horario.bg-success li:nth-child(2n+1) {
-    background-color: #3ca8a2!important;
+    background-color: #3ca8a2 !important;
 }
 
 /** Fecha **/
@@ -260,12 +286,15 @@ body{
 .fecha {
     font-size: 2.8rem;
 }
+
 .fecha span {
     font-weight: 700;
 }
+
 .fecha span:first-child::before {
     display: none;
 }
+
 .fecha span::before {
     content: '-';
     clear: both;
@@ -276,8 +305,8 @@ body{
     font-size: 2rem;
     display: block;
     top: 0;
-    background: linear-gradient(135deg, rgba(242, 123, 59, 0.7) 0%, rgba(6, 79, 137, 0.7) 51%, rgba(107,107,107,0.7) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3a90329', endColorstr='#b36b6b6b',GradientType=1 );
+    background: linear-gradient(135deg, rgba(242, 123, 59, 0.7) 0%, rgba(6, 79, 137, 0.7) 51%, rgba(107, 107, 107, 0.7) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3a90329', endColorstr='#b36b6b6b', GradientType=1);
 }
 
 /* Asegura que el video se ajuste sin deformarse */
@@ -292,6 +321,7 @@ body{
     z-index: 100;
     top: 20%;
 }
+
 .informacion-concierto h1 {
     font-size: 3rem;
     font-weight: 600;
@@ -308,7 +338,8 @@ body{
 /* Usando flex */
 .contenido-hero {
     width: 100%;
-    max-width: 1500px; /* Ajusta el valor aquí */
+    max-width: 1500px;
+    /* Ajusta el valor aquí */
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -324,7 +355,8 @@ body{
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 1500px; /* 📌 Máximo tamaño en pantallas grandes */
+    max-width: 1500px;
+    /* 📌 Máximo tamaño en pantallas grandes */
 }
 
 /* 📌 ICONO DE LUPA DENTRO DEL INPUT */
@@ -339,7 +371,8 @@ body{
 .input-container input {
     width: 1000px;
     max-width: 800px;
-    padding: 12px 50px; /* 📌 Espacio para la lupa */
+    padding: 12px 50px;
+    /* 📌 Espacio para la lupa */
     border: 2px solid #ccc;
     border-radius: 8px;
     font-size: 1.2rem;
@@ -363,14 +396,17 @@ body{
     .contenido-hero h1 {
         font-size: 2rem;
     }
+
     .input-container {
         max-width: 90%;
     }
+
     .input-container input {
         width: 100%;
         font-size: 1rem;
         padding: 10px 45px;
     }
+
     .input-container .btn-buscar {
         font-size: 0.9rem;
         padding: 6px 12px;
@@ -379,11 +415,13 @@ body{
 
 /* 📌 Estilos para el spinner */
 .spinner-container {
-    display: none; /* 🔥 Oculto por defecto */
+    display: none;
+    /* 🔥 Oculto por defecto */
     text-align: center;
     padding: 20px;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out; /* Efecto suave de aparición */
+    transition: opacity 0.5s ease-in-out;
+    /* Efecto suave de aparición */
 }
 
 /* 📌 Estilo del Spinner */
@@ -403,30 +441,34 @@ body{
     .informacion-concierto {
         top: 30%;
     }
+
     .informacion-concierto h1 {
         font-size: 3rem;
         line-height: unset;
     }
 }
+
 .informacion-concierto h1 span,
 .informacion-concierto p {
     font-weight: 700;
-    -webkit-box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
-    -moz-box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
-    box-shadow: 0px 17px 24px -13px rgba(0,0,0,0.34);
+    -webkit-box-shadow: 0px 17px 24px -13px rgba(0, 0, 0, 0.34);
+    -moz-box-shadow: 0px 17px 24px -13px rgba(0, 0, 0, 0.34);
+    box-shadow: 0px 17px 24px -13px rgba(0, 0, 0, 0.34);
 }
+
 .informacion-concierto p {
     font-size: 2rem;
 }
+
 .informacion-concierto .text-dark,
 .contenido-principal .text-dark {
-    color: #f27b3b!important;
+    color: #f27b3b !important;
     font-weight: 700;
 }
 
 /** Line up **/
 
-.separador::after{
+.separador::after {
     content: '';
     display: block;
     height: 120px;
@@ -436,18 +478,21 @@ body{
     background-position: center center;
     margin: 0 auto;
 }
+
 .rock::after {
     background-image: url(../img/guitarra.png);
 }
+
 .dj::after {
     background-image: url(../img/dj.png);
 }
 
 .horario.bg-warning li:nth-child(2n+1) {
-    background-color: #eae05b!important;
+    background-color: #eae05b !important;
 }
+
 .horario.bg-success li:nth-child(2n+1) {
-    background-color: #3ca8a2!important;
+    background-color: #3ca8a2 !important;
 }
 
 /** Fecha **/
@@ -455,12 +500,15 @@ body{
 .fecha {
     font-size: 2.8rem;
 }
+
 .fecha span {
     font-weight: 700;
 }
+
 .fecha span:first-child::before {
     display: none;
 }
+
 .fecha span::before {
     content: '-';
     clear: both;
@@ -470,12 +518,14 @@ body{
 .pie .precio {
     font-size: 2rem;
 }
+
 .pie .active {
-     background-color:  #1B659F!important;
-     border-color: #1B659F!important;
+    background-color: #1B659F !important;
+    border-color: #1B659F !important;
 }
+
 .list-group-item-success {
-    background-color: #4cb8b3!important;
+    background-color: #4cb8b3 !important;
 }
 
 /* 📌 TRACKING TIMELINE STYLES */
@@ -498,7 +548,8 @@ body{
 
 .timeline-marker {
     position: absolute;
-    left: -9px; /* Ajustar para centrar en la línea de 2px */
+    left: -9px;
+    /* Ajustar para centrar en la línea de 2px */
     top: 0;
     width: 16px;
     height: 16px;
@@ -509,7 +560,8 @@ body{
 }
 
 .timeline-item.active .timeline-marker {
-    background-color: #28a745; /* Verde éxito */
+    background-color: #28a745;
+    /* Verde éxito */
     border-color: #28a745;
     box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.2);
 }
@@ -518,13 +570,13 @@ body{
     background-color: #f8f9fa;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .timeline-item.active .timeline-content {
     border-left: 4px solid #28a745;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .timeline-header {
@@ -572,11 +624,51 @@ body{
 }
 
 @keyframes fadeIn {
-    to { opacity: 1; }
+    to {
+        opacity: 1;
+    }
 }
 
-.timeline-item:nth-child(1) { animation-delay: 0.1s; }
-.timeline-item:nth-child(2) { animation-delay: 0.2s; }
-.timeline-item:nth-child(3) { animation-delay: 0.3s; }
-.timeline-item:nth-child(4) { animation-delay: 0.4s; }
-.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+.timeline-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.timeline-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.timeline-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.timeline-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.timeline-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+/* Custom CSS Loader */
+.custom-loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #064f89;
+    /* Primary Blue */
+    border-bottom-color: #f27b3b;
+    /* Secondary Orange */
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
